@@ -1,0 +1,62 @@
+<div id = 'show_product_details_<%=product.id%>' style= 'display:none;'>
+  <div id ='product_details_back_<%=product.id%>'></div>
+  <div id="product_details_fade_in_<%=product.id%>" aria-hidden="True">
+    <div class="modal-header">
+      <a href="#" class="close" id= 'product_close_<%=product.id%>' data-dismiss="modal">Ã—</a>
+      <div style="text-align: center;"><h5 class="modal-header-title" style="margin: 1px 0;"> <%= product.name[0, 100]%></h5></div>
+    </div>
+    <div class="modal-body" align = "center">
+        <div class="row">
+              <div class='row'>
+                <div class='span4'>
+                  <div id='main-thumbnail'>
+                    <a href='<%= product.purchase_url  %>'><img src= '<%= product.image.thumb_url if product.image %>'/></a>
+                    <p><a href='<%= product.purchase_url  %>'>Show On Website</a></p>
+                  </div>
+                </div>
+                <div class='row' style="margin-bottom:10px;">
+                  <div class='span6'>
+                    UPC: <%= product.upc %>
+                   </div>
+                   <div class='span6'>
+                     Model Number: <%= product.model_number %>
+                   </div>
+                   <div class='span6'>
+                     Search From: <%= product.search_from %>
+                   </div>
+
+                  <div class='span6'>
+                    <h5>Features:</h5>
+                    <p>
+                      <%= product.desc.html_safe%>
+                    </p>
+                  </div>
+
+                  <% if product.product_api_accessories.first %>
+                  <div class="span18">
+                    <h5>Accessories:</h5>
+                    <ul style="list-style-type: none;">
+                    <%product.product_api_accessories.each do |accessory| %>
+
+                        <li data-icon='amz-buy'>
+                          <a href=<%= accessory.purchase_url if accessory.purchase_url %> data-ajax='false'>
+                          <p style='white-space:normal;'><%= accessory.name %>
+                            <% if accessory.model_number %>
+                                (<%= accessory.model_number %>)
+                            <% end %>
+                          </p>
+                          </a>
+                        </li>
+                    <%end %>
+                    </ul>
+                  </div>
+                  <%end%>
+                </div>
+
+                 <div class='row'>
+                  </div>
+               </div>
+              </div>
+        </div>
+    </div>
+  </div>
